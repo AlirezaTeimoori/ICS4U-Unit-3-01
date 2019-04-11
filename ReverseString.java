@@ -14,54 +14,41 @@ import java.util.Scanner;
 
 public class ReverseString {
 
-    // Intro variables:
-    private String userInputString;
-    private String reversedString = "";
-    //private String temp;
-    
+    // Instantiate scanner
     public static Scanner scanner = new Scanner(System.in);
 
-    // Constructor:
-    public ReverseString(String userInpuString) { 
-        
-        this.userInputString = userInpuString;
-    }
-
     // reverseString() function gets a string and returns the reverse
-    public String reverseString() {
+    public static String reverseString(String thisString) {
         
-        String thisString = this.userInputString;
-        String revString  = this.reversedString;
+        // Intro variables:
+        String revString = "";
 
-        if ( thisString.length() > 1) {
+        if ( thisString.length() > 1) { // If the input is more than 1 character long :
 
-            revString += thisString.charAt( thisString.length() - 1 );
-            setRevString(revString);
-            reverseString();
 
-        } else {
+            // Adds the last character of thisString to revString and sends the rest into the function recursively:
+            revString += thisString.charAt(thisString.length()-1) + reverseString(thisString.substring(0, thisString.length()-1));
 
-            if ( thisString.length() == 0) { setRevString("Bad!"); }
-            else if ( thisString.length() == 1) { setRevString(revString);; }
+        } else { // If the input is 1 or less than 1 character long
+
+            // Add the input to the result
+            revString += thisString;
 
         }
 
-
-
-        return this.reversedString;
+        return revString;
     }
     
-    // setRevString() sets the reversedString field:
-    public void setRevString(String revString) {
-        
-        this.reversedString = revString;
-    }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { // Main function
         
+        // Ask for and store data:
         System.out.println("Hello and welcome! Please enter your String:\n");
         String userInput = scanner.nextLine();
-        ReverseString reverseString = new ReverseString(userInput);
-        reverseString.reverseString();
+
+        // Output:
+        System.out.println("user input is ==> " + userInput);
+        System.out.println(reverseString(userInput));
+        
     }
 }
